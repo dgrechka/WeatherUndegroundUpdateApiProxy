@@ -29,8 +29,16 @@ Proxy the request through the web service which properly set the `host` header.
 
 1. Deploy the [built docker image (published on docker hub)](https://hub.docker.com/r/dgrechka/weather-underground-update-proxy).
 
-e.g. with docker compose
+e.g. with docker compose (replace IP address with proper value)
 ```
+version: '2'
+
+services:
+  ui:
+    image: dgrechka/weather-underground-update-proxy:latest
+    restart: always
+    ports:
+      - 10.0.12.1:5000:5000
 ```
 
 2. Point the whether station to send the data to the deployed service
