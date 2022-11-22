@@ -1,0 +1,48 @@
+---
+kind: pipeline
+type: kubernetes
+name: default
+
+steps:
+- name: build docker image
+  image: plugins/docker
+  settings:
+    repo: dgrechka/weather-underground-update-proxy
+    dry_run: true
+- name: build & push docker image (main branch)
+  image: plugins/docker
+  when:
+    branch:
+    - main
+    event:
+      exclude:
+        - tag
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: dgrechka/weather-underground-update-proxy
+    #target: final
+    #dockerfile: CardIndexRestAPI/Dockerfile
+    auto_tag: true
+    force_tag: true
+    #build_args:
+    # - VERSION=0.0.0.${DRONE_BUILD_NUMBER}
+- name: build & push docker image (TAG)
+  image: plugins/docker
+  when:
+    event:
+    - tag
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: dgrechka/weather-underground-update-proxy
+    #target: final
+    #dockerfile: CardIndexRestAPI/Dockerfile
+    auto_tag: true
+    force_tag: true
+    #build_args:
+    # - VERSION=${DRONE_TAG}.${DRONE_BUILD_NUMBER}
