@@ -19,9 +19,9 @@ steps:
         - tag
   settings:
     username:
-      from_secret: docker_username
+      from_secret: docker_hub_username
     password:
-      from_secret: docker_password
+      from_secret: docker_hub_pass
     repo: dgrechka/weather-underground-update-proxy
     #target: final
     #dockerfile: CardIndexRestAPI/Dockerfile
@@ -36,9 +36,9 @@ steps:
     - tag
   settings:
     username:
-      from_secret: docker_username
+      from_secret: docker_hub_username
     password:
-      from_secret: docker_password
+      from_secret: docker_hub_pass
     repo: dgrechka/weather-underground-update-proxy
     #target: final
     #dockerfile: CardIndexRestAPI/Dockerfile
